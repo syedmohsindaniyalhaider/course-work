@@ -42,20 +42,27 @@ const ExpenseForm = ({ saveExpenseData }) => {
     )
 }
 
-const ExpenceCard = ({ expenseData }) => {
+const ExpenceCard = ({ expenseData, updatedList }) => {
 
     const [filterData, setFilterData] = useState(expenseData)
 
     const selectedValue = (value) => {
-        const newData = expenseData.filter(item => item.date.getFullYear().toString() === value)
-        setFilterData(newData)
+        if (value === 'select') {
+            setFilterData(expenseData)
+            updatedList(expenseData)
+        } else {
+            const newData = expenseData.filter(item => item.date.getFullYear().toString() === value)
+            setFilterData(newData)
+            updatedList(newData)
+        }
     }
 
     return (
         <>
-            <ExpenseChart expenses={filterData} />
+
             <div className="my-4">
                 <select className="form-control" onChange={(e) => selectedValue(e.target.value)}>
+                    <option value='select'>select</option>
                     <option value='2020'>2020</option>
                     <option value='2021'>2021</option>
                     <option value='2022'>2022</option>
@@ -77,8 +84,7 @@ const ExpenceCard = ({ expenseData }) => {
                             <tr key={item?.id}>
                                 <td>{item?.title}</td>
                                 <td>{item?.amount}</td>
-                                <td>{item?.date.toLocaleString('en-US')}</td>
-                                {/* <td>{item?.date.toLocaleDateString('sv-SE')}</td> */}
+                                <td>{item?.date.toLocaleDateString('sv-SE')}</td>
                             </tr>
                         ))
                     }
@@ -91,17 +97,20 @@ const ExpenceCard = ({ expenseData }) => {
 const Expense = () => {
 
     const expenseList = [
-        { id: 1, title: 'Car Insurance', amount: '24.3', date: new Date(2018, 3, 7) },
-        { id: 2, title: 'Health Insurance', amount: '34.3', date: new Date(2021, 8, 5) },
-        { id: 3, title: 'Toiled Paper', amount: '238.3', date: new Date(2021, 4, 12) },
-        { id: 4, title: 'Old Paper', amount: '44.3', date: new Date(2021, 8, 11) },
-        { id: 5, title: 'New Paper', amount: '4.3', date: new Date(2021, 8, 8) },
-        { id: 6, title: 'Amazon Services', amount: '94.3', date: new Date(2022, 1, 9) },
-        { id: 7, title: 'Car Maintenance', amount: '134.3', date: new Date(2022, 2, 10) },
-        { id: 8, title: 'New Clother', amount: '334.3', date: new Date(2019, 4, 11) },
+        { id: 1, title: 'Car Insurance', amount: '24.3', date: new Date(2018, 3, 1) },
+        { id: 2, title: 'Health Insurance', amount: '34.3', date: new Date(2021, 8, 1) },
+        { id: 3, title: 'Toiled Paper', amount: '238.3', date: new Date(2021, 4, 1) },
+        { id: 4, title: 'Old Paper', amount: '44.3', date: new Date(2021, 7, 1) },
+        { id: 5, title: 'New Paper', amount: '4.3', date: new Date(2021, 6, 1) },
+        { id: 6, title: 'Amazon Services', amount: '94.3', date: new Date(2022, 1, 1) },
+        { id: 7, title: 'Car Maintenance', amount: '134.3', date: new Date(2020, 2, 1) },
+        { id: 8, title: 'New Clother', amount: '24.3', date: new Date(2019, 4, 1) },
+        { id: 9, title: 'Health Insurance', amount: '98.3', date: new Date(2021, 8, 1) },
+        { id: 10, title: 'New Clother', amount: '64.3', date: new Date(2019, 7, 1) },
     ];
 
     const [list, setList] = useState(expenseList)
+    const [updateList, setUpdateList] = useState(list)
 
     const addData = (newExpenseData) => {
         setList((prevData) => {
@@ -121,8 +130,9 @@ const Expense = () => {
     return (
         <>
             <div className="container my-4">
+                <ExpenseChart expenses={updateList} />
                 <ExpenseForm saveExpenseData={saveExpense} />
-                <ExpenceCard expenseData={list} />
+                <ExpenceCard expenseData={list} updatedList={setUpdateList} />
             </div>
         </>
     );

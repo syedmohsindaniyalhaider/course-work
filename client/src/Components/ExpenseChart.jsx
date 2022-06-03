@@ -6,8 +6,6 @@ const ChartBar = ({
     maxValue,
     label
 }) => {
-    console.log('Max Val::', maxValue)
-    console.log('Val::', value)
     let barFillHeight = '0%';
     if (maxValue > 0) {
         barFillHeight = Math.round((value / maxValue) * 100) + '%'
@@ -26,9 +24,7 @@ const ChartBar = ({
 
 const Chart = ({ dataPoints }) => {
     const dataPointValues = dataPoints.map(dt => dt.value)
-    console.log("Total Points :: ", dataPointValues)
     const totalMax = Math.max(...dataPointValues);
-    console.log("Total :: ", totalMax)
     return (
         <>
             <div className={styles.chart}>
@@ -46,7 +42,6 @@ const Chart = ({ dataPoints }) => {
 }
 
 const ExpenseChart = ({ expenses }) => {
-    console.log("from chart", expenses)
     const chartDataPoints = [
         { label: 'Jan', value: 0 },
         { label: 'Feb', value: 0 },
@@ -62,9 +57,8 @@ const ExpenseChart = ({ expenses }) => {
         { label: 'Dec', value: 0 },
     ];
     for (let ex of expenses) {
-        const expenseMonth = ex.date.getMonth();
-        console.log("Expense Month", expenseMonth)
-        chartDataPoints[expenseMonth].value += ex.amount;
+        const expenseMonth = ex.date.getMonth()
+        chartDataPoints[expenseMonth].value += +ex.amount;
     }
 
     return <Chart dataPoints={chartDataPoints} />

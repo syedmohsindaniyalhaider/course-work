@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Expense from './Components/Expense';
 
