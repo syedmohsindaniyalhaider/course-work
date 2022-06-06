@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import './App.css';
-import Expense from './Components/Expense';
+import SignIn from './Components/Login/Login'
+import Reducer from './Components/Reducer/Reducer';
+// import Expense from './Components/Expense'; Don't remove this
 
 function App() {
+
   return (
     <>
-      <Expense />
+      <Reducer />
+      {/* <div className="container">
+        <SignIn />
+      </div> */}
+      {/* <Expense /> Don't remove this */}
     </>
   );
 }

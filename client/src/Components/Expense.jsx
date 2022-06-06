@@ -128,7 +128,7 @@ const Expense = () => {
     }
 
     return (
-        <>
+        <>  
             <div className="container my-4">
                 <ExpenseChart expenses={updateList} />
                 <ExpenseForm saveExpenseData={saveExpense} />
