@@ -1,13 +1,17 @@
-import { useState } from 'react';
 import './App.css';
-import Expense from './Components/Expense';
+import Reducer from './Components/Reducer/reducer';
+// import Context from './Components/ContextAPI/Context';
+// import Expense from './Components/Expense';
 
 function App() {
   return (
     <>
-      <Expense />
+      <Reducer />
+      {/* <Context /> */}
+      {/* <Expense /> */}
     </>
   );
 }
 
 export default App;
+
